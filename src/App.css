@@ -33,6 +33,7 @@
 
 .card-container {
   margin: 10px;
+  margin-bottom: 30px;
 }
 
 @media (max-width: 768px) {
@@ -43,8 +44,22 @@
 
 .pokemon-card-list {
   width: 182.74px;
-  height: 247px;
-  background-color: aliceblue;
-  border-radius: 20px;
   cursor: pointer;
+}
+
+.pokemon-card-list h3 {
+  margin: 10px 0 5px
+}
+
+.card-image {
+  display: flex;
+  height: 190px;
+  align-items: center;
+  justify-content: center;
+  background-color: aliceblue;
+  border-radius: 7px;
+}
+
+.pokemon-type {
+  color: #A10B25
 }

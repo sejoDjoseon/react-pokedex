@@ -16,16 +16,25 @@
 
 .details-image {
     float: left;
-    width: 30%;
+    width: 35%;
     height: auto;
-    margin-right: 20px;
+    margin-right: 40px;
+}
+
+.image-container {
+    background-color: aliceblue;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    aspect-ratio : 1 / 1;
 }
 
 .details-info {
     float: left;
-    width: 30%;
+    width: 35%;
     height: auto;
-    padding: 20px;
+    padding: 0 20px 20px;
     font-size: 16px;
     line-height: 1.5;
 }
@@ -35,7 +44,8 @@
     background: #000000;
     border-radius: 6px;
     padding: 22px 15px;
-    color: white
+    color: white;
+    max-width: 400px;
 }
 
 .row {
@@ -54,6 +64,7 @@
         padding-bottom: 200px;
     }
     .details-image, .details-info {
+        margin-top: 20px;
         float: none;
         width: 80%;
         margin-right: 0;

@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useAppContext } from "../../context/context";
+import { PokemonTypes } from "../PokemonTypes/PokemonTypes";
 import "./styles.css";
 
 interface IPokemonDetailsProps {}
@@ -15,18 +16,20 @@ const PokemonDetails: React.FunctionComponent<IPokemonDetailsProps> = (
             {pokemon && (
                 <div className="details-content">
                     <div className="details-image">
-                        <img
-                            src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
-                            alt={pokemon.name}
-                            width="100%"
-                            height="auto"
-                        />
+                        <div className="image-container">
+                            <img
+                                src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
+                                alt={pokemon.name}
+                                width="50%"
+                                height="auto"
+                            />
+                        </div>
                     </div>
                     <div className="details-info">
-                        <h1>{pokemon.name}</h1>
-                        <div>
-                            {pokemon.types.map(({ type }) => `${type.name} `)}
-                        </div>
+                        <h2>{pokemon.name.toUpperCase()}</h2>
+                        <h4>
+                            <PokemonTypes types={pokemon.types}></PokemonTypes>
+                        </h4>
                         <div className="info-card">
                             <h3>More Stats</h3>
                             <p>base_experience: {pokemon.base_experience}</p>
