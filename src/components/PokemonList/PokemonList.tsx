@@ -4,6 +4,10 @@ import ListCard from "./ListCard/ListCard";
 import { debounce } from "lodash";
 import { ActionKind, useAppContext } from "../../context/context";
 
+const needsNext = () =>
+    window.innerHeight + window.scrollY >=
+    document.body.offsetHeight - 247 * 1.5;
+
 const PokemonList: React.FunctionComponent = () => {
     const { state: appState, dispatch: appDispatch } = useAppContext();
 
@@ -28,13 +32,7 @@ const PokemonList: React.FunctionComponent = () => {
     }, []);
 
     const handleScroll = () => {
-        if (
-            window.innerHeight + window.scrollY >=
-                document.body.offsetHeight -
-                    Math.max(window.innerWidth * 0.5, 100) &&
-            nextUrl &&
-            !loading
-        ) {
+        if (nextUrl && !loading && needsNext()) {
             appDispatch({ type: ActionKind.SET_LOADING_LIST, loading: true });
             fetchPokemons(nextUrl)
                 .then((data) => {
