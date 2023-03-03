@@ -55,13 +55,16 @@ const PokemonList: React.FunctionComponent = () => {
     }, [pokemons]);
 
     return (
-        <div className="pokemon-list">
-            {pokemons.map((pokemon) => (
-                <ListCard key={pokemon.id} pokemon={pokemon} />
-            ))}
-            {loading && <p>Loading...</p>}
-            {error && <p>Error: {error.message}</p>}
-        </div>
+        <>
+            <h2>POKÉMONS</h2>
+            <div className="pokemon-list">
+                {pokemons.map((pokemon) => (
+                    <ListCard key={pokemon.id} pokemon={pokemon} />
+                ))}
+                {loading && <p>Loading...</p>}
+                {error && <p>Error: {error.message}</p>}
+            </div>
+        </>
     );
 };
 

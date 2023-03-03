@@ -8,7 +8,7 @@ export interface IListCardProps {
 export default function ListCard({ pokemon }: IListCardProps) {
     return (
         <div className="pokemonCardList">
-            <h2>{pokemon.name}</h2>
+            <h3>{pokemon.name}</h3>
             <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
                 alt={pokemon.name}
