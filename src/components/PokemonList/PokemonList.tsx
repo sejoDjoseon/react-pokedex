@@ -14,21 +14,23 @@ const PokemonList: React.FunctionComponent = () => {
     const { nextUrl, loading, error, pokemons } = appState;
 
     useEffect(() => {
-        appDispatch({ type: ActionKind.SET_LOADING_LIST, loading: true });
-        fetchPokemons()
-            .then((data) => {
-                appDispatch({
-                    type: ActionKind.SET_POKEMON_LIST,
-                    pokemons: data.results,
-                    nextUrl: data.next,
+        if (pokemons.length === 0) {
+            appDispatch({ type: ActionKind.SET_LOADING_LIST, loading: true });
+            fetchPokemons()
+                .then((data) => {
+                    appDispatch({
+                        type: ActionKind.SET_POKEMON_LIST,
+                        pokemons: data.results,
+                        nextUrl: data.next,
+                    });
+                })
+                .catch((error) => {
+                    appDispatch({
+                        type: ActionKind.SET_ERROR_LOADING,
+                        error: error,
+                    });
                 });
-            })
-            .catch((error) => {
-                appDispatch({
-                    type: ActionKind.SET_ERROR_LOADING,
-                    error: error,
-                });
-            });
+        }
     }, []);
 
     const handleScroll = () => {
