@@ -12,11 +12,7 @@ function App() {
 
     useEffect(() => {
         if (selectedPokemon) {
-            window.history.pushState(
-                { page: "pokemon-details" },
-                "",
-                `/pokemon-details`
-            );
+            window.history.pushState({ page: "pokemon-details" }, "", `/`);
             window.addEventListener("popstate", handlePopstate);
             return () => {
                 window.removeEventListener("popstate", handlePopstate);

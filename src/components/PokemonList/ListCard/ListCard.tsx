@@ -15,7 +15,7 @@ export default function ListCard({ pokemon, onClick }: IListCardProps) {
             />
             <h3>{pokemon.name}</h3>
             {pokemon.types.map(({ type }) => (
-                <div>{type.name}</div>
+                <div key={type.name}>{type.name}</div>
             ))}
         </div>
     );
