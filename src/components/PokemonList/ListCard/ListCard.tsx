@@ -3,11 +3,12 @@ import { IPokemon } from "../../../interfaces/pokemon";
 
 export interface IListCardProps {
     pokemon: IPokemon;
+    onClick?: () => void;
 }
 
-export default function ListCard({ pokemon }: IListCardProps) {
+export default function ListCard({ pokemon, onClick }: IListCardProps) {
     return (
-        <div className="pokemon-card-list">
+        <div onClick={onClick} className="pokemon-card-list">
             <img
                 src={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${pokemon.id}.png`}
                 alt={pokemon.name}

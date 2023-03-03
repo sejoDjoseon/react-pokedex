@@ -5,7 +5,7 @@ export enum ActionKind {
     SET_LOADING_LIST,
     SET_ERROR_LOADING,
     SET_POKEMON_LIST,
-    // SET_SELECTED_POKEMON,
+    SET_SELECTED_POKEMON,
 }
 
 interface SetLoadingListAction {
@@ -24,22 +24,23 @@ interface SetPokemonListAction {
     nextUrl: string | null;
 }
 
-// interface SetSelectedPokemonAction {
-//     type: ActionKind.SET_SELECTED_POKEMON;
-//     pokemon: IPokemon;
-// }
+interface SetSelectedPokemonAction {
+    type: ActionKind.SET_SELECTED_POKEMON;
+    pokemon: IPokemon | null;
+}
 
 type Action =
     | SetLoadingListAction
     | SetErrorLoadingListAction
-    | SetPokemonListAction;
-// | SetSelectedPokemonAction;
+    | SetPokemonListAction
+    | SetSelectedPokemonAction;
 
 interface AppState {
     pokemons: IPokemon[];
     loading: boolean;
     error: Error | null;
     nextUrl: string | null;
+    selectedPokemon: IPokemon | null;
 }
 
 const initialAppState: AppState = {
@@ -47,6 +48,7 @@ const initialAppState: AppState = {
     loading: false,
     error: null,
     nextUrl: null,
+    selectedPokemon: null,
 };
 
 function appReducer(state: AppState, action: Action): AppState {
@@ -69,6 +71,11 @@ function appReducer(state: AppState, action: Action): AppState {
                 loading: false,
                 pokemons: action.pokemons,
                 nextUrl: action.nextUrl,
+            };
+        case ActionKind.SET_SELECTED_POKEMON:
+            return {
+                ...state,
+                selectedPokemon: action.pokemon,
             };
     }
 }

@@ -68,7 +68,15 @@ const PokemonList: React.FunctionComponent = () => {
             <div className="pokemon-list">
                 {pokemons.map((pokemon) => (
                     <div key={pokemon.id} className="card-container">
-                        <ListCard pokemon={pokemon} />
+                        <ListCard
+                            pokemon={pokemon}
+                            onClick={() => {
+                                appDispatch({
+                                    type: ActionKind.SET_SELECTED_POKEMON,
+                                    pokemon,
+                                });
+                            }}
+                        />
                     </div>
                 ))}
                 {loading && <p>Loading...</p>}
