@@ -1,4 +1,4 @@
-import { Pokemon } from "./interfaces/pokemon";
+import { IPokemon } from "./interfaces/pokemon";
 
 interface PokemonAPIRes {
     name: string;
@@ -11,14 +11,9 @@ interface IPokemonList<T> {
     results: T[];
 }
 
-function getPokemonId(url: string): string {
-    const urlParts = url.split("/");
-    return urlParts[urlParts.length - 2];
-}
-
 const INITIAL_URL = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`;
 
-const fetchPokemons = (url = INITIAL_URL): Promise<IPokemonList<Pokemon>> => {
+const fetchPokemons = (url = INITIAL_URL): Promise<IPokemonList<IPokemon>> => {
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -27,15 +22,14 @@ const fetchPokemons = (url = INITIAL_URL): Promise<IPokemonList<Pokemon>> => {
             return response.json();
         })
         .then((data: IPokemonList<PokemonAPIRes>) => {
-            const { results } = data;
+            const promises = data.results.map((pokemon: PokemonAPIRes) =>
+                fetch(pokemon.url).then((response) => response.json())
+            );
 
-            return {
+            return Promise.all(promises).then((results: IPokemon[]) => ({
                 ...data,
-                results: results.map(({ name, url }) => ({
-                    name,
-                    id: getPokemonId(url),
-                })),
-            };
+                results: results,
+            }));
         });
 };
 

@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { fetchPokemons } from "../../api";
-import { Pokemon } from "../../interfaces/pokemon";
+import { IPokemon } from "../../interfaces/pokemon";
 import ListCard from "./ListCard/ListCard";
 import { debounce } from "lodash";
 
 const PokemonList: React.FunctionComponent = () => {
-    const [pokemons, setPokemons] = useState<Pokemon[]>([]);
+    const [pokemons, setPokemons] = useState<IPokemon[]>([]);
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<Error | null>(null);
     const [nextUrl, setNextUrl] = useState<string | null>(null);
