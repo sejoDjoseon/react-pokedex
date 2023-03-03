@@ -63,3 +63,7 @@
 .pokemon-type {
   color: #A10B25
 }
+
+.row {
+  display: flex;
+}

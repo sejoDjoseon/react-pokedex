@@ -1,5 +1,6 @@
 import * as React from "react";
 import { useAppContext } from "../../context/context";
+import { capitalizeFirstLetter } from "../../utils/utils";
 import { PokemonTypes } from "../PokemonTypes/PokemonTypes";
 import "./styles.css";
 
@@ -32,15 +33,26 @@ const PokemonDetails: React.FunctionComponent<IPokemonDetailsProps> = (
                         </h4>
                         <div className="info-card">
                             <h3>More Stats</h3>
-                            <p>base_experience: {pokemon.base_experience}</p>
-                            <p>height: {pokemon.height}</p>
-                            <p>order: {pokemon.order}</p>
-                            <p>weight: {pokemon.weight}</p>
                             <p>
-                                abilities:{" "}
-                                {pokemon.abilities.map(
-                                    ({ ability }) => `${ability.name} `
-                                )}
+                                Base experience:{" "}
+                                <span>{pokemon.base_experience}</span>
+                            </p>
+                            <p>
+                                Height: <span>{pokemon.height}</span>
+                            </p>
+                            <p>
+                                Order: <span>{pokemon.order}</span>
+                            </p>
+                            <p>
+                                Weight: <span>{pokemon.weight}</span>
+                            </p>
+                            <p>
+                                Abilities:{" "}
+                                {pokemon.abilities.map(({ ability }) => (
+                                    <span>
+                                        {capitalizeFirstLetter(ability.name)}
+                                    </span>
+                                ))}
                             </p>
                         </div>
                     </div>

@@ -1,12 +1,9 @@
 import * as React from "react";
 import { IPokemonType } from "../../interfaces/pokemon";
+import { capitalizeFirstLetter } from "../../utils/utils";
 
 export interface IPokemonTypesProps {
     types: IPokemonType[];
-}
-
-function capitalizeFirstLetter(str: string): string {
-    return str.charAt(0).toUpperCase() + str.slice(1);
 }
 
 export function PokemonTypes({ types }: IPokemonTypesProps) {
@@ -14,12 +11,13 @@ export function PokemonTypes({ types }: IPokemonTypesProps) {
     return (
         <>
             {types.map(({ type }, index) => (
-                <text
+                <span
+                    key={index}
                     className="pokemon-type"
                     style={index !== lenght ? { marginRight: 10 } : undefined}
                 >
                     {capitalizeFirstLetter(type.name)}
-                </text>
+                </span>
             ))}
         </>
     );
