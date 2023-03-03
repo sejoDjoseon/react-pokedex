@@ -5,7 +5,7 @@ interface PokemonAPIRes {
     url: string;
 }
 
-interface PokemonList<T> {
+interface IPokemonList<T> {
     count: number;
     next: string;
     results: T[];
@@ -16,8 +16,9 @@ function getPokemonId(url: string): string {
     return urlParts[urlParts.length - 2];
 }
 
-const fetchPokemons = async (offset = 0, limit = 20): Promise<Pokemon[]> => {
-    const url = `https://pokeapi.co/api/v2/pokemon?offset=${offset}&limit=${limit}`;
+const INITIAL_URL = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`;
+
+const fetchPokemons = (url = INITIAL_URL): Promise<IPokemonList<Pokemon>> => {
     return fetch(url)
         .then((response) => {
             if (!response.ok) {
@@ -25,11 +26,16 @@ const fetchPokemons = async (offset = 0, limit = 20): Promise<Pokemon[]> => {
             }
             return response.json();
         })
-        .then((data: PokemonList<PokemonAPIRes>) => {
-            return data.results.map(({ name, url }) => ({
-                name,
-                id: getPokemonId(url),
-            }));
+        .then((data: IPokemonList<PokemonAPIRes>) => {
+            const { results } = data;
+
+            return {
+                ...data,
+                results: results.map(({ name, url }) => ({
+                    name,
+                    id: getPokemonId(url),
+                })),
+            };
         });
 };
 
