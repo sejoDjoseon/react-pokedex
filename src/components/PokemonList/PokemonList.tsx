@@ -27,7 +27,8 @@ const PokemonList: React.FunctionComponent = () => {
     const handleScroll = () => {
         if (
             window.innerHeight + window.scrollY >=
-                document.body.offsetHeight - 200 &&
+                document.body.offsetHeight -
+                    Math.max(window.innerWidth * 0.5, 100) &&
             nextUrl &&
             !loading
         ) {
@@ -59,7 +60,9 @@ const PokemonList: React.FunctionComponent = () => {
             <h2>POKÉMONS</h2>
             <div className="pokemon-list">
                 {pokemons.map((pokemon) => (
-                    <ListCard key={pokemon.id} pokemon={pokemon} />
+                    <div key={pokemon.id} className="card-container">
+                        <ListCard pokemon={pokemon} />
+                    </div>
                 ))}
                 {loading && <p>Loading...</p>}
                 {error && <p>Error: {error.message}</p>}

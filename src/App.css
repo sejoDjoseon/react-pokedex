@@ -16,7 +16,26 @@
   font-weight: bold;
 }
 
+.pokemon-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0px 50px;
+}
+
+.card-container {
+  margin: 10px;
+}
+
+@media (max-width: 768px) {
+  .pokemon-list {
+    margin: 0px 10px;
+  }
+}
+
 .pokemon-card-list {
   width: 182.74px;
   height: 247px;
+  background-color: aliceblue;
+  border-radius: 20px;
 }

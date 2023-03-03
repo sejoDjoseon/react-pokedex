@@ -11,7 +11,7 @@ interface IPokemonList<T> {
     results: T[];
 }
 
-const INITIAL_URL = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=20`;
+const INITIAL_URL = `https://pokeapi.co/api/v2/pokemon?offset=0&limit=30`;
 
 const fetchPokemons = (url = INITIAL_URL): Promise<IPokemonList<IPokemon>> => {
     return fetch(url)
