@@ -1,26 +1,29 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { fetchPokemons } from "../../api";
-import { IPokemon } from "../../interfaces/pokemon";
 import ListCard from "./ListCard/ListCard";
 import { debounce } from "lodash";
+import { ActionKind, useAppContext } from "../../context/context";
 
 const PokemonList: React.FunctionComponent = () => {
-    const [pokemons, setPokemons] = useState<IPokemon[]>([]);
-    const [loading, setLoading] = useState(false);
-    const [error, setError] = useState<Error | null>(null);
-    const [nextUrl, setNextUrl] = useState<string | null>(null);
+    const { state: appState, dispatch: appDispatch } = useAppContext();
+
+    const { nextUrl, loading, error, pokemons } = appState;
 
     useEffect(() => {
-        setLoading(true);
+        appDispatch({ type: ActionKind.SET_LOADING_LIST, loading: true });
         fetchPokemons()
             .then((data) => {
-                setPokemons(data.results);
-                setLoading(false);
-                setNextUrl(data.next);
+                appDispatch({
+                    type: ActionKind.SET_POKEMON_LIST,
+                    pokemons: data.results,
+                    nextUrl: data.next,
+                });
             })
             .catch((error) => {
-                setError(error);
-                setLoading(false);
+                appDispatch({
+                    type: ActionKind.SET_ERROR_LOADING,
+                    error: error,
+                });
             });
     }, []);
 
@@ -32,16 +35,20 @@ const PokemonList: React.FunctionComponent = () => {
             nextUrl &&
             !loading
         ) {
-            setLoading(true);
+            appDispatch({ type: ActionKind.SET_LOADING_LIST, loading: true });
             fetchPokemons(nextUrl)
                 .then((data) => {
-                    setPokemons([...pokemons, ...data.results]);
-                    setNextUrl(data.next);
-                    setLoading(false);
+                    appDispatch({
+                        type: ActionKind.SET_POKEMON_LIST,
+                        pokemons: [...pokemons, ...data.results],
+                        nextUrl: data.next,
+                    });
                 })
                 .catch((error) => {
-                    setError(error);
-                    setLoading(false);
+                    appDispatch({
+                        type: ActionKind.SET_ERROR_LOADING,
+                        error: error,
+                    });
                 });
         }
     };
@@ -56,7 +63,7 @@ const PokemonList: React.FunctionComponent = () => {
     }, [pokemons]);
 
     return (
-        <>
+        <div className="page-container">
             <h2>POKÉMONS</h2>
             <div className="pokemon-list">
                 {pokemons.map((pokemon) => (
@@ -67,7 +74,7 @@ const PokemonList: React.FunctionComponent = () => {
                 {loading && <p>Loading...</p>}
                 {error && <p>Error: {error.message}</p>}
             </div>
-        </>
+        </div>
     );
 };
 

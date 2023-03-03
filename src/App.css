@@ -16,11 +16,18 @@
   font-weight: bold;
 }
 
+.page-container {
+  margin: 0px 100px;
+}
+
+.page-container h2 {
+  margin: 20px 10px;
+}
+
 .pokemon-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  margin: 0px 50px;
 }
 
 .card-container {
@@ -28,7 +35,7 @@
 }
 
 @media (max-width: 768px) {
-  .pokemon-list {
+  .page-container {
     margin: 0px 10px;
   }
 }
